@@ -1,0 +1,78 @@
+{% extends 'base/base.html' %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-8">
+                <div class="bd-example">
+                    <div class="col">
+                        <div class="card mb-4 rounded-3 shadow-sm">
+
+                            <div class="card-header py-3">
+                                <h4 class="my-0 fw-normal"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ post.title }} </font></font></h4>
+                            </div>
+
+                            <div class="card-body">
+
+                                {% for tag in post.tags.all %}
+                                    <span class="lead"><a href="{% url 'work:post_list_by_tags' tag.slug %}" class="link-secondary">{{ tag }}</a>
+                                        {% if tag != post.tags.last %}, {% else %}.{% endif %}
+                                    </span>
+                                {% endfor %}
+
+                                <div class="row row-cols-1 row-cols-md-2 mb-2 text-right">
+                                    <div class="col">
+                                        <ul class="list-unstyled mt-3 mb-4">
+                                            <li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Специализация: {{ post.specialization }}</font></font></li>
+                                            <li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Уровень: {{ post.level }}</font></font></li>
+                                            <li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Опыт: {{ post.experience }}</font></font></li>
+                                            <li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Уровень английского: {{ post.level_english }}</font></font></li>
+                                            <li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Зарплата: {{ post.salary }}</font></font></li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="col">
+                                        <ul class="list-unstyled mt-3 mb-4">
+                                            <li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Город: {{ post.city }}</font></font></li>
+                                            <li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Режим работы: {{ post.mode_work }}</font></font></li>
+                                            <li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Размер команды: {{ post.size_team }}</font></font></li>
+                                            <li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Размер компании: {{ post.size_company }}</font></font></li>
+                                            <li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Возможна удалённая работа: {{ post.talework }}</font></font></li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <button type="button" class="w-100 btn btn-lg btn-outline-primary" style="margin-bottom: 20px"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+                                    <a href="{% url 'work:resume_create' post.id %}">Откликнуться на вакансию</a>
+                                </font></font></button>
+
+
+                                <div class="h-100 p-5 bg-light border rounded-3">
+                                    <h2><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Описание</font></font></h2>
+                                    <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ post.description }}</font><font style="vertical-align: inherit;">Не забудьте заглянуть в исходный HTML-код здесь, поскольку мы настроили выравнивание и размер содержимого обоих столбцов на одинаковую высоту.</font></font></p>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+{#            <span class="border border-primary">#}
+            <div class="col-4">
+                <div class="border border-primary bd-main order-1" style="text-align: center">
+                    <div class="bd-callout bd-callout-info">
+                        <ul class="list-unstyled mt-3 mb-4">
+                            <li class="display-6"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Автор: <br> {{ post.agent.first_name }} {{ post.agent.last_name }}</font></font></li>
+                            <li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Username:  {{ post.agent.username }}</font></font></li>
+                            <li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Email:  <a href="https://{{ post.agent.email }}">{{ post.agent.email }}</a></font></font> </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

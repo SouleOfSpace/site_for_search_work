@@ -1,0 +1,54 @@
+{% extends 'base/base.html' %}
+{% block content_news %}
+    <div class="col-sm-9">
+            <div class="overflow-auto p-3 mb-3 mb-md-0 me-md-3 bg-light" style="max-width: 100vw; max-height: 84vh;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+
+                <div class="my-3 p-3 bg-body rounded shadow-sm">
+                    <h6 class="border-bottom pb-2 mb-0"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Недавние обновления</font></font></h6>
+                <div class="d-flex text-muted pt-3">
+                <svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Заполнитель: 32x32" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#007bff"></rect><text x="50%" y="50%" fill="#007bff" dy=".3em">32x32</text></svg>
+                </div>
+
+               <div class="my-3 p-3 bg-body rounded shadow-sm">
+                <h6 class="border-bottom pb-2 mb-0"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Предложения</font></font></h6>
+
+                {% for news in page_obj %}
+                     <div class="d-flex text-muted pt-3">
+                    <svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Заполнитель: 32x32" preserveAspectRatio="xMidYMid slice" focusable="false"><title>
+                            Placeholder</title><rect width="100%" height="100%" {% if news.slug == last_3_news.0.slug %}fill="#007bff"{% elif news.slug == last_3_news.1.slug %}fill="#e83e8c"{% else %}fill=="#6f42c1"{% endif %}></rect><text x="50%" y="50%"
+                            {% if news.slug == last_3_news.0.slug %}fill="#007bff"{% elif news.slug == last_3_news.1.slug %}fill="#e83e8c"{% else %}fill=="#6f42c1"{% endif %} dy=".3em">32x32</text></svg>
+
+                    <p class="pb-3 mb-0 small lh-sm border-bottom">
+                        <strong class="d-block text-gray-dark"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ news.title }}</font></font></strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+                        {{ news.agent.email }}</font><br>
+                        {{ news.body|truncatechars_html:100 }}<br>
+                        Publish: {{ news.publish }}</font>
+                    </p>
+                    </div>
+                {% endfor %}
+
+                <small class="d-block text-end mt-3">
+                    <a href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Все предложения</font></font></a>
+                </small>
+            </div>
+
+            <div>
+                <span>
+                    {% if page_obj.has_previous %}
+                        <a href="?page=1">&laquo; first</a>
+                        <a href="?page="{{ page_obj.previous_page_number }}>previous</a>
+                    {% endif %}
+
+                    <span>
+                        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                    </span>
+
+                    {% if page_obj.has_next %}
+                        <a href="?page={{ page_obj.next_page_number }}">next</a>
+                        <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                    {% endif %}
+                </span>
+            </div>
+
+            </div>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Create your resume{% endblock %}
+
+{% block content %}
+    <h1>Create your Resume</h1>
+    {% if status == 'creating' %}
+    <form action="." method="post">
+        {% for filed in resume_form %}
+            <div class="row">
+            <div class="col-sm-4">{{ filed.label }}:</div><div class="col-sm-4">{{ filed }}</div>
+            </div><br>
+        {% endfor %}
+        {% csrf_token %}
+        <p><input type="submit" value="Create new Resume"></p>
+    </form>
+    {% else %}
+        <div class="card-header py-3">
+            Вы успешно создали резюме
+        </div>
+    {% endif %}
+
+{% endblock %}

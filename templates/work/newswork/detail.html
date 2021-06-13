@@ -1,0 +1,42 @@
+{% extends 'base/base.html' %}
+
+{% block title %}{{ newswork.title }}{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="bd-example">
+                <div class="col">
+                    <div class="card mb-4 rounded-3 shadow-sm">
+
+                        <div class="card-header py-3">
+                            <h4 class="my-0 fw-normal"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ newswork.title }} </font></font></h4>
+                        </div>
+
+                        <div class="card-body">
+
+                            {% for tag in newswork.tags.all %}
+                                <span class="lead"><a href="{% url 'work:post_list_by_tags' tag.slug %}" class="link-secondary">{{ tag }}</a>
+                                    {% if tag != post.tags.last %}, {% else %}.{% endif %}
+                                </span>
+                            {% endfor %}
+
+                            <div class="row row-cols-1 row-cols-md-2 mb-2 text-right">
+                                <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Опубликовано: {{ newswork.publish }}</font></font>
+                                <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Автор: {{ newswork.agent.first_name }} {{ newswork.agent.last_name }}</font></font>
+                                <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Опубликовано: {{ newswork.agent.email }}</font></font>
+                            </div>
+
+
+                            <div class="h-100 p-5 bg-light border rounded-3">
+                                <h2><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Описание</font></font></h2>
+                                <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ newswork.body }}</font><font style="vertical-align: inherit;">Не забудьте заглянуть в исходный HTML-код здесь, поскольку мы настроили выравнивание и размер содержимого обоих столбцов на одинаковую высоту.</font></font></p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
